@@ -41,12 +41,13 @@ class PascalVOC(IMDB):
         self.devkit_path = devkit_path
         self.data_path = os.path.join(devkit_path, 'VOC' + year)
 
-        self.classes = ['__background__',  # always index 0
-                        'aeroplane', 'bicycle', 'bird', 'boat',
-                        'bottle', 'bus', 'car', 'cat', 'chair',
-                        'cow', 'diningtable', 'dog', 'horse',
-                        'motorbike', 'person', 'pottedplant',
-                        'sheep', 'sofa', 'train', 'tvmonitor']
+#        self.classes = ['__background__',  # always index 0
+#                        'aeroplane', 'bicycle', 'bird', 'boat',
+#                        'bottle', 'bus', 'car', 'cat', 'chair',
+#                        'cow', 'diningtable', 'dog', 'horse',
+#                        'motorbike', 'person', 'pottedplant',
+#                        'sheep', 'sofa', 'train', 'tvmonitor']
+        self._classes = ['__background__', 'white', 'red', 'black', 'fangzhenchui', 'ban']
         self.num_classes = len(self.classes)
         self.image_set_index = self.load_image_set_index()
         self.num_images = len(self.image_set_index)
@@ -75,7 +76,8 @@ class PascalVOC(IMDB):
         :param index: index of a specific image
         :return: full path of this image
         """
-        image_file = os.path.join(self.data_path, 'JPEGImages', index + '.jpg')
+        image_file = os.path.join(self.data_path, 'JPEGImages', index + '.JPG')
+        #image_file = os.path.join(self.data_path, 'JPEGImages', index + '.jpg')
         assert os.path.exists(image_file), 'Path does not exist: {}'.format(image_file)
         return image_file
 
@@ -160,10 +162,10 @@ class PascalVOC(IMDB):
         for ix, obj in enumerate(objs):
             bbox = obj.find('bndbox')
             # Make pixel indexes 0-based
-            x1 = float(bbox.find('xmin').text) - 1
-            y1 = float(bbox.find('ymin').text) - 1
-            x2 = float(bbox.find('xmax').text) - 1
-            y2 = float(bbox.find('ymax').text) - 1
+            x1 = float(bbox.find('xmin').text)
+            y1 = float(bbox.find('ymin').text)
+            x2 = float(bbox.find('xmax').text)
+            y2 = float(bbox.find('ymax').text)
             cls = class_to_index[obj.find('name').text.lower().strip()]
             boxes[ix, :] = [x1, y1, x2, y2]
             gt_classes[ix] = cls
