@@ -37,6 +37,8 @@ class PascalVOC(IMDB):
         super(PascalVOC, self).__init__('voc_' + year, image_set, root_path, devkit_path, result_path)  # set self.name
 
         self.year = year
+        print '******************'
+        print 'year: ', year
         self.root_path = root_path
         self.devkit_path = devkit_path
         self.data_path = os.path.join(devkit_path, 'VOC' + year)
