@@ -47,7 +47,7 @@ class PascalVOC(IMDB):
 #                        'cow', 'diningtable', 'dog', 'horse',
 #                        'motorbike', 'person', 'pottedplant',
 #                        'sheep', 'sofa', 'train', 'tvmonitor']
-        self._classes = ['__background__', 'white', 'red', 'black', 'fangzhenchui', 'ban']
+        self.classes = ['__background__', 'white', 'red', 'black', 'fangzhenchui', 'ban']
         self.num_classes = len(self.classes)
         self.image_set_index = self.load_image_set_index()
         self.num_images = len(self.image_set_index)
@@ -158,6 +158,7 @@ class PascalVOC(IMDB):
         overlaps = np.zeros((num_objs, self.num_classes), dtype=np.float32)
 
         class_to_index = dict(zip(self.classes, range(self.num_classes)))
+        
         # Load object bounding boxes into a data frame.
         for ix, obj in enumerate(objs):
             bbox = obj.find('bndbox')
