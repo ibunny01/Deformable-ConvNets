@@ -9,7 +9,7 @@ import os
 import logging
 import time
 
-def create_logger(root_output_path, cfg, image_set):
+def create_logger(root_output_path, cfg, image_set, epoch):
     # set up logger
     if not os.path.exists(root_output_path):
         os.makedirs(root_output_path)
@@ -25,7 +25,9 @@ def create_logger(root_output_path, cfg, image_set):
     if not os.path.exists(final_output_path):
         os.makedirs(final_output_path)
 
-    log_file = '{}_{}.log'.format(cfg_name, time.strftime('%Y-%m-%d-%H-%M'))
+    # log_file = '{}_{}.log'.format(cfg_name, time.strftime('%Y-%m-%d-%H-%M'))
+    log_file = '{}_{}.log'.format(cfg_name, epoch)
+
     head = '%(asctime)-15s %(message)s'
     logging.basicConfig(filename=os.path.join(final_output_path, log_file), format=head)
     logger = logging.getLogger()

@@ -45,16 +45,19 @@ def main():
     ctx = [mx.gpu(int(i)) for i in config.gpus.split(',')]
     print args
 
-    logger, final_output_path = create_logger(config.output_path, args.cfg, config.dataset.test_image_set)
+    logger, final_output_path = create_logger(config.output_path, args.cfg, config.dataset.test_image_set, config.TEST.test_epoch)
 
-    print '######################'
-    print 'before config.TEST.test_epoch = ', config.TEST.test_epoch
-    config.TEST.test_epoch = 10
-    print 'after config.TEST.test_epoch = ', config.TEST.test_epoch
+    for i in range(16, 50, 1):
+        os.remove('/home/nfdw/nfdw/Deformable-ConvNets/output/rfcn_dcn/voc/resnet_v1_101_voc0712_rfcn_dcn_end2end_ohem/2007_test/voc_2007_test_detections.pkl')
+        print '*****************'
+        print 'remove pkl done!'
+        config.TEST.test_epoch = i
+        print '***********************'
+        print 'testing epoch ', config.TEST.test_epoch
+        test_rcnn(config, config.dataset.dataset, config.dataset.test_image_set, config.dataset.root_path, config.dataset.dataset_path,
+                  ctx, os.path.join(final_output_path, '..', '_'.join([iset for iset in config.dataset.image_set.split('+')]), config.TRAIN.model_prefix), config.TEST.test_epoch,
+                  args.vis, args.ignore_cache, args.shuffle, config.TEST.HAS_RPN, config.dataset.proposal, args.thresh, logger=logger, output_path=final_output_path)
 
-    test_rcnn(config, config.dataset.dataset, config.dataset.test_image_set, config.dataset.root_path, config.dataset.dataset_path,
-              ctx, os.path.join(final_output_path, '..', '_'.join([iset for iset in config.dataset.image_set.split('+')]), config.TRAIN.model_prefix), config.TEST.test_epoch,
-              args.vis, args.ignore_cache, args.shuffle, config.TEST.HAS_RPN, config.dataset.proposal, args.thresh, logger=logger, output_path=final_output_path)
 
 if __name__ == '__main__':
     main()
