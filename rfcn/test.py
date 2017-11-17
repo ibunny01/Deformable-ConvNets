@@ -45,13 +45,14 @@ def main():
     ctx = [mx.gpu(int(i)) for i in config.gpus.split(',')]
     print args
 
-    logger, final_output_path = create_logger(config.output_path, args.cfg, config.dataset.test_image_set, config.TEST.test_epoch)
 
     for i in range(16, 50, 1):
         os.remove('/home/nfdw/nfdw/Deformable-ConvNets/output/rfcn_dcn/voc/resnet_v1_101_voc0712_rfcn_dcn_end2end_ohem/2007_test/voc_2007_test_detections.pkl')
         print '*****************'
         print 'remove pkl done!'
         config.TEST.test_epoch = i
+        logger, final_output_path = create_logger(config.output_path, args.cfg, config.dataset.test_image_set,
+                                                  config.TEST.test_epoch)
         print '***********************'
         print 'testing epoch ', config.TEST.test_epoch
         test_rcnn(config, config.dataset.dataset, config.dataset.test_image_set, config.dataset.root_path, config.dataset.dataset_path,
