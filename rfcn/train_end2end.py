@@ -51,7 +51,7 @@ from utils.lr_scheduler import WarmupMultiFactorScheduler
 
 
 def train_net(args, ctx, pretrained, epoch, prefix, begin_epoch, end_epoch, lr, lr_step):
-    logger, final_output_path = create_logger(config.output_path, args.cfg, config.dataset.image_set)
+    logger, final_output_path = create_logger(config.output_path, args.cfg, config.dataset.image_set, epoch)
     prefix = os.path.join(final_output_path, prefix)
 
     # load symbol
