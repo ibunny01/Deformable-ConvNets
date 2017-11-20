@@ -9,7 +9,7 @@ import os
 import logging
 import time
 
-def create_logger(root_output_path, cfg, image_set, epoch):
+def create_logger(root_output_path, cfg, image_set):
     # set up logger
     if not os.path.exists(root_output_path):
         os.makedirs(root_output_path)
