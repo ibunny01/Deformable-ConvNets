@@ -46,8 +46,8 @@ def main():
     print args
 
 
-    for i in range(16, 50, 1):
-        os.remove('/home/nfdw/nfdw/Deformable-ConvNets/output/rfcn_dcn/voc/resnet_v1_101_voc0712_rfcn_dcn_end2end_ohem/2007_test/voc_2007_test_detections.pkl')
+    for i in range(1, 51, 1):
+        os.remove('/home/nfdw/nfdw/Deformable-ConvNets/output/rfcn/voc/resnet_v1_101_voc0712_rfcn_end2end_ohem/2007_test/voc_2007_test_detections.pkl')
         print '*****************'
         print 'remove pkl done!'
         config.TEST.test_epoch = i
