@@ -34,10 +34,11 @@ def main():
     sym = sym_instance.get_symbol(config, is_train=False)
 
     # load demo data
-    image_names = ['000240.jpg', '000437.jpg', '004072.jpg', '007912.jpg']
+    image_names = ['DSC_6654.JPG', 'DSC_6656.JPG', 'clear.JPG', 'DSC_6777.JPG']
     image_all = []
     data = []
     for im_name in image_names:
+        print im_name
         assert os.path.exists(cur_path + '/../demo/deform_conv/' + im_name), \
             ('%s does not exist'.format('../demo/deform_conv/' + im_name))
         im = cv2.imread(cur_path + '/../demo/deform_conv/' + im_name, cv2.IMREAD_COLOR | cv2.IMREAD_IGNORE_ORIENTATION)
@@ -57,6 +58,7 @@ def main():
     provide_data = [[(k, v.shape) for k, v in zip(data_names, data[i])] for i in xrange(len(data))]
     provide_label = [None for i in xrange(len(data))]
     arg_params, aux_params = load_param(cur_path + '/../model/deform_conv', 0, process=True)
+    #arg_params, aux_params = load_param(cur_path + '/../output/rfcn_dcn/voc/resnet_v1_101_voc0712_rfcn_dcn_end2end_ohem/2007_trainval/rfcn_voc', 7, process=True)
     predictor = Predictor(sym, data_names, label_names,
                           context=[mx.gpu(0)], max_data_shapes=max_data_shape,
                           provide_data=provide_data, provide_label=provide_label,
@@ -64,6 +66,8 @@ def main():
 
     # test
     for idx, _ in enumerate(image_names):
+        img_name = image_names[idx]
+        print img_name
         data_batch = mx.io.DataBatch(data=[data[idx]], label=[], pad=0, index=idx,
                                      provide_data=[[(k, v.shape) for k, v in zip(data_names, data[idx])]],
                                      provide_label=[None])
@@ -75,7 +79,7 @@ def main():
 
         im = image_all[idx]
         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-        show_dconv_offset(im, [res5c_offset, res5b_offset, res5a_offset])
+        show_dconv_offset(img_name, im, [res5c_offset, res5b_offset, res5a_offset])
 
 if __name__ == '__main__':
     main()

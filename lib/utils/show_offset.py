@@ -4,7 +4,8 @@
 # Licensed under The Apache-2.0 License [see LICENSE for details]
 # Written by Guodong Zhang
 # --------------------------------------------------------
-
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -70,7 +71,7 @@ def plot_according_to_point(vis_attr, im, source_points, map_h, map_w, color=[25
 
 
 
-def show_dpsroi_offset(im, boxes, offset, classes, trans_std=0.1):
+def show_dpsroi_offset(im_name, im, boxes, offset, classes, trans_std=0.1):
     plt.cla
     for idx, bbox in enumerate(boxes):
         plt.figure(idx+1)
@@ -130,7 +131,9 @@ def show_dconv_offset(im, all_offset, step=[2, 2], filter_size=3,
 
 
             plt.axis("off")
+            plt.savefig('/home/nfdw/nfdw/Deformable-ConvNets/demo/deform_conv/result/'+im_name)
             plt.imshow(cur_im)
-            plt.show(block=False)
-            plt.pause(0.01)
-            plt.clf()
+            
+            #plt.show(block=False)
+            #plt.pause(0.01)
+            #plt.clf()
