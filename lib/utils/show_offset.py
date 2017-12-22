@@ -100,7 +100,7 @@ def show_dpsroi_offset(im_name, im, boxes, offset, classes, trans_std=0.1):
                 show_boxes_simple(sub_box)
         plt.show()
 
-def show_dconv_offset(im, all_offset, step=[2, 2], filter_size=3,
+def show_dconv_offset(im_name, im, all_offset, step=[2, 2], filter_size=3,
                       dilation=2, pad=2, plot_area=2, plot_level=3):
     vis_attr = {'filter_size': filter_size, 'dilation': dilation, 'pad': pad,
                 'plot_area': plot_area, 'plot_level': plot_level}
@@ -131,9 +131,11 @@ def show_dconv_offset(im, all_offset, step=[2, 2], filter_size=3,
 
 
             plt.axis("off")
-            plt.savefig('/home/nfdw/nfdw/Deformable-ConvNets/demo/deform_conv/result/'+im_name)
-            plt.imshow(cur_im)
             
+            plt.savefig('/home/nfdw/nfdw/Deformable-ConvNets/demo/deform_conv/result/'+im_name)
+            plt.show()
+            print 'finished '+im_name
+            #plt.imshow(cur_im)
             #plt.show(block=False)
             #plt.pause(0.01)
             #plt.clf()
