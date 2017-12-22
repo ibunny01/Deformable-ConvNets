@@ -131,11 +131,11 @@ def show_dconv_offset(im_name, im, all_offset, step=[2, 2], filter_size=3,
 
 
             plt.axis("off")
-            
-            plt.savefig('/home/nfdw/nfdw/Deformable-ConvNets/demo/deform_conv/result/'+im_name)
-            plt.show()
-            print 'finished '+im_name
-            #plt.imshow(cur_im)
-            #plt.show(block=False)
-            #plt.pause(0.01)
-            #plt.clf()
+            plt.imshow(cur_im)
+            plt.show(block=False)
+            plt.pause(0.01)
+            plt.clf()
+
+    fig1 = plt.gcf()
+    plt.show()
+    fig1.savefig('/home/nfdw/nfdw/Deformable-ConvNets/demo/deform_conv/result/' + im_name)
